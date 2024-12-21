@@ -9,7 +9,7 @@
       }
     },
     {
-      "src": "backend/index.js",
+      "src": "backend/server.js",
       "use": "@vercel/node"
     }
   ],
@@ -20,7 +20,7 @@
     },
     {
       "src": "/mint-nft",
-      "dest": "/backend/index.js"
+      "dest": "/backend/server.js"
     }
   ]
 }

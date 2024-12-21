@@ -1,4 +1,4 @@
-# NFT Generator on XRPL with Pinata Integration
+# Hackathon - Preserving Lands Through NFTs on XRP Ledger
 
 This project issues NFTs as symbolic digital assets representing preservation certificates for landowners who commit to protecting their properties. Each NFT is unique and reflects the specific characteristics of the protected land, promoting land preservation through a digital record on the blockchain. Additionally, the project introduces tokens that enable direct investments in the preserved lands, fostering the development of sustainable infrastructure.
 
@@ -15,26 +15,50 @@ Landowners who join the network by either purchasing land for protection or comm
 ### Requirements
 
 - [Node.js](https://nodejs.org/) (v16 or later recommended)
+- Yarn or NPM
 - An account on [Pinata](https://www.pinata.cloud/).
 - A wallet seed for XRPL (testnet).
 
 ### Installation
 
 1. Clone this repository:
+
    ```bash
-   git clone <repository_url>
-   cd <repository_folder>
+   git clone https://github.com/vivipolli/xrp-ledger-hackathon.git
+   cd xrp-ledger-hackathon
    ```
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-3. Create a `.env` file in the project root with the following variables:
+
+2. Create a `.env` file inside the backend folder with the following variables:
+
    ```env
    PINATA_API_KEY=your_pinata_api_key
    PINATA_SECRET_API_KEY=your_pinata_secret_api_key
    SEED=your_xrpl_testnet_seed
    ACCOUNT_ADDRESS=your_xrpl_testnet_account
+   ```
+
+   And another `.env` file inside the frontend:
+
+   ```env
+   REACT_APP_BACKEND_URL=http://localhost:3000
+   ```
+
+3. Install dependencies:
+
+   Backend:
+
+   ```bash
+   cd backend
+   npm install
+
+   ```
+
+   Frontend
+
+   ```bash
+   cd frontend
+   npm install
+
    ```
 
 ## Generating a New XRPL Seed
@@ -51,9 +75,17 @@ This will output a new seed and wallet address. Use the seed to fund the wallet 
 
 1. Start the server:
    ```bash
-   node index.js
+   cd backend
+   node server.js
    ```
 2. The server will run at `http://localhost:3000`.
+
+## Running the Client
+
+```bash
+cd frontend
+npm run dev
+```
 
 ## API Endpoints
 
