@@ -14,6 +14,7 @@ const App = () => {
   const [error, setError] = useState("");
   const [imageUrls, setImageUrls] = useState({});
   const [metadataUrls, setMetadataUrls] = useState({});
+  const [carNumber, setCarNumber] = useState({});
 
 
   const handleSubmit = async (values) => {
@@ -82,8 +83,13 @@ const App = () => {
       const response = await axios.get(metadataIPFS);
       const data = response.data;
       const image = data.image;
+      const CARValue = data.attributes[6].value;
       const cleanedImg = image.replace(/^ipfs:\/\//, '').replace(/^ipfs:/, '');
-      return `https://gateway.pinata.cloud/ipfs/${cleanedImg}`;
+      return {
+        image: `https://gateway.pinata.cloud/ipfs/${cleanedImg}`,
+        car: CARValue
+      };
+
 
     } catch (error) {
       throw new Error(`Erro ao acessar o IPFS: ${error.message}`);
@@ -93,23 +99,27 @@ const App = () => {
   useEffect(() => {
     const loadMetadataAndImageUrls = async () => {
       const updatedImageUrls = { ...imageUrls };
-      const updatedMetadataUrls = { ...metadataUrls }; // Novo estado para URLs de metadados
+      const updatedInfoCAR = { ...carNumber };
+      const updatedMetadataUrls = { ...metadataUrls };
 
       for (const nft of nfts) {
         if (!updatedImageUrls[nft.URI]) {
-          const imageUrl = (await getPinataImageUrl(decodeHexToString(nft.URI)));
-          updatedImageUrls[nft.URI] = imageUrl;
+          const imageUrl = await getPinataImageUrl(decodeHexToString(nft.URI));
+          const carValue = await getPinataImageUrl(decodeHexToString(nft.URI));
+
+          updatedImageUrls[nft.URI] = imageUrl.image;
+          updatedInfoCAR[nft.URI] = carValue.car;
         }
 
         if (!updatedMetadataUrls[nft.URI]) {
           const cleanedHash = (decodeHexToString(nft.URI)).replace(/^ipfs:\/\//, '').replace(/^ipfs:/, '');
           const metadataIPFS = `https://gateway.pinata.cloud/ipfs/${cleanedHash}`
-          console.log(metadataIPFS)
           updatedMetadataUrls[nft.URI] = metadataIPFS;
         }
       }
 
-      setMetadataUrls(updatedMetadataUrls)
+      setMetadataUrls(updatedMetadataUrls);
+      setCarNumber(updatedInfoCAR);
       setImageUrls(updatedImageUrls);
     };
 
@@ -213,8 +223,8 @@ const App = () => {
                               src={imageUrls[nft.URI] || 'https://via.placeholder.com/150'}
                             />
                             <div>
-                              <strong>ID do NFT: </strong>
-                              <span>{nft.nft_serial}</span>
+                              <strong>Registro : </strong>
+                              <span>{carNumber[nft.URI]}</span>
                             </div>
                           </div>
                         </div>
