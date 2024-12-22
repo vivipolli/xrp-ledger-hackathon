@@ -45,7 +45,7 @@ Landowners who join the network by either purchasing land for protection or comm
    And another `.env` file inside the frontend:
 
    ```env
-   REACT_APP_BACKEND_URL=http://localhost:3000
+   VITE_API_URL=http://localhost:3000
    ```
 
 3. Install dependencies:
@@ -128,11 +128,61 @@ curl -X POST http://localhost:3000/mint-nft \
 
 ```json
 {
-  "message": "NFT gerado e emitido com sucesso!",
+  "message": "NFT successfully generated and issued!",
   "metadataURI": "ipfs://<ipfs_hash_of_metadata>",
   "mintResponse": { ...transaction_details... }
 }
 ```
+
+### Get NFTs
+
+- **Endpoint:** `GET /nfts`
+- **Description:** Retrieves a list of NFTs associated with a specific account on the XRPL.
+- **Response:** Returns an array of NFT objects, each containing details like the issuer, token ID, metadata URI, and more.
+
+#### Response Format
+
+The response is an array of objects with the following fields:
+
+- `Flags`: Numeric value representing the NFT flags.
+- `Issuer`: The XRPL account address that issued the NFT.
+- `NFTokenID`: The unique identifier for the NFT.
+- `NFTokenTaxon`: A numeric identifier used for categorizing NFTs.
+- `URI`: The metadata URI, typically in hexadecimal format.
+- `nft_serial`: The serial number of the NFT.
+
+#### Example Request
+
+```bash
+curl -X GET http://localhost:3000/nfts
+```
+
+#### Example Response
+
+```json
+[
+  {
+    "Flags": 8,
+    "Issuer": "rwYcWhJQFTssq1U9hXEDxMSx11eS7Rvxig",
+    "NFTokenID": "0008000068B3A95E5B95F3DE227AE4175B518E2A69B7F85B3AF4A6EF00330954",
+    "NFTokenTaxon": 0,
+    "URI": "697066733A2F2F516D5A45757A38635A345545316A7567326259755957683157444E325268344B51555269585562584D663851756D",
+    "nft_serial": 3344724
+  }
+]
+```
+
+#### Notes
+
+- **`URI` Field:** The `URI` is encoded in hexadecimal. You can decode it to retrieve the original metadata URI, typically starting with `ipfs://`.
+- Ensure that the `ACCOUNT_ADDRESS` environment variable is set to the account address whose NFTs you want to fetch.
+- Errors will return a JSON response with the following format:
+  ```json
+  {
+    "error": "Erro searching NFTs",
+    "details": "Error details here"
+  }
+  ```
 
 ## Code Overview
 
