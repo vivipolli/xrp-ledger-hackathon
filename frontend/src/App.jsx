@@ -4,7 +4,7 @@ import { UploadOutlined } from '@ant-design/icons';
 import axios from 'axios';
 
 
-const { Title, Paragraph } = Typography;
+const { Paragraph } = Typography;
 
 const App = () => {
   const [loading, setLoading] = useState(false);
@@ -17,7 +17,7 @@ const App = () => {
 
 
   const handleSubmit = async (values) => {
-    const { coberturaVegetal, hectares, atributosEspecificos, corposAgua, nascentes, projetos, image } = values;
+    const { coberturaVegetal, hectares, atributosEspecificos, corposAgua, nascentes, projetos, car, image } = values;
 
     if (!image) {
       message.error("Por favor, adicione uma imagem.");
@@ -33,6 +33,8 @@ const App = () => {
     formData.append("corposAgua", corposAgua);
     formData.append("nascentes", nascentes);
     formData.append("projetos", projetos);
+    formData.append("car", car);
+
 
     try {
       const response = await axios.post(`${import.meta.env.VITE_API_URL}/mint-nft`, formData, {
@@ -150,6 +152,10 @@ const App = () => {
           <Input />
         </Form.Item>
 
+        <Form.Item label="Registro CAR:" name="car" rules={[{ required: true, message: 'Por favor, insira o registro CAR!' }]}>
+          <Input />
+        </Form.Item>
+
         <Form.Item label="Imagem" name="image" rules={[{ required: true, message: 'Por favor, faça o upload de uma imagem!' }]}>
           <Upload
             name="image"
@@ -208,7 +214,7 @@ const App = () => {
                             />
                             <div>
                               <strong>ID do NFT: </strong>
-                              <span>{nft.nft_serial}</span> {/* Aqui está o ID do NFT */}
+                              <span>{nft.nft_serial}</span>
                             </div>
                           </div>
                         </div>
