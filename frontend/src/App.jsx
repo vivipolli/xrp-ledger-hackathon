@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Button, Input, Form, Upload, message, Spin, Card, Row, Col, Typography } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import axios from 'axios';
@@ -142,7 +142,7 @@ const App = () => {
             beforeUpload={() => false}
             accept="image/*"
             showUploadList={false}
-            customRequest={({ file, onSuccess }) => {
+            customRequest={({ onSuccess }) => {
               setTimeout(() => onSuccess(), 0);
             }}
           >
