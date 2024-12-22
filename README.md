@@ -4,13 +4,18 @@ This project issues NFTs as symbolic digital assets representing preservation ce
 
 Landowners who join the network by either purchasing land for protection or committing to preserve existing property will receive a verified NFT. This NFT serves as a certificate of preservation, detailing the specific attributes of the land. Furthermore, it provides access to the Protectors of the Forest DAO, a decentralized community advocating for environmental conservation.
 
+## 🌟 See the Project in Action!
+
+👉 **[Click here to access the Live Demo](https://xrp-ledger-hackathon-tmgx.vercel.app/)**  
+💻 Explore the basic functionalities directly in your browser.
+
 ## Features
 
 - Upload images to IPFS via Pinata.
 - Store metadata as JSON on IPFS via Pinata.
 - Mint NFTs on the XRPL testnet representing preservation certificates.
 
-## Prerequisites
+## Running Locally
 
 ### Requirements
 
