@@ -159,7 +159,7 @@ const App = () => {
 
       {/* Marketplace Section */}
       <div style={{ marginTop: '50px' }}>
-        <Title level={2}>NFTs de Preservação de Áreas Naturais</Title>
+        <Title level={2}>Marketplace - NFTs de Preservação de Áreas Naturais</Title>
 
         {fetchingNfts ? (
           <div style={{ textAlign: "center", padding: "20px" }}>
