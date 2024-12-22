@@ -13,6 +13,7 @@ const App = () => {
   const [fetchingNfts, setFetchingNfts] = useState(false);
   const [error, setError] = useState("");
   const [imageUrls, setImageUrls] = useState({});
+  const [metadataUrls, setMetadataUrls] = useState({});
 
 
   const handleSubmit = async (values) => {
@@ -71,14 +72,14 @@ const App = () => {
     return decoder.decode(bytes);
   }
 
-
   async function getPinataImageUrl(ipfsHash) {
     try {
       const cleanedHash = ipfsHash.replace(/^ipfs:\/\//, '').replace(/^ipfs:/, '');
       const metadataIPFS = `https://gateway.pinata.cloud/ipfs/${cleanedHash}`;
 
       const response = await axios.get(metadataIPFS);
-      const image = response.data.image;
+      const data = response.data;
+      const image = data.image;
       const cleanedImg = image.replace(/^ipfs:\/\//, '').replace(/^ipfs:/, '');
       return `https://gateway.pinata.cloud/ipfs/${cleanedImg}`;
 
@@ -88,19 +89,31 @@ const App = () => {
   }
 
   useEffect(() => {
-    const loadImages = async () => {
+    const loadMetadataAndImageUrls = async () => {
       const updatedImageUrls = { ...imageUrls };
+      const updatedMetadataUrls = { ...metadataUrls }; // Novo estado para URLs de metadados
+
       for (const nft of nfts) {
         if (!updatedImageUrls[nft.URI]) {
-          const imageUrl = await getPinataImageUrl(decodeHexToString(nft.URI));
+          const imageUrl = (await getPinataImageUrl(decodeHexToString(nft.URI)));
           updatedImageUrls[nft.URI] = imageUrl;
         }
+
+        if (!updatedMetadataUrls[nft.URI]) {
+          const cleanedHash = (decodeHexToString(nft.URI)).replace(/^ipfs:\/\//, '').replace(/^ipfs:/, '');
+          const metadataIPFS = `https://gateway.pinata.cloud/ipfs/${cleanedHash}`
+          console.log(metadataIPFS)
+          updatedMetadataUrls[nft.URI] = metadataIPFS;
+        }
       }
+
+      setMetadataUrls(updatedMetadataUrls)
       setImageUrls(updatedImageUrls);
     };
 
-    loadImages();
+    loadMetadataAndImageUrls();
   }, [nfts]);
+
 
 
   useEffect(() => {
@@ -109,7 +122,8 @@ const App = () => {
 
   return (
     <div style={{ padding: '50px' }}>
-      <h1>Certificado de Preservação de Áreas Naturais</h1>
+      <h1>Green Ledger: Emita Seu Certificado de Preservação Ambiental</h1>
+      <h3 style={{ color: '#fff' }}>Insira as informações da sua área de preservação para gerar um NFT exclusivo que certifica sua contribuição para a proteção ambiental. Cada certificado é validado e registrado na blockchain XRPL e funciona como pré-requisito para juntar-se à DAO Protetores de Florestas</h3>
 
       <Form form={form} onFinish={handleSubmit} layout="vertical" style={{ maxWidth: 600 }}>
         <Form.Item label="Cobertura Vegetal (%)" name="coberturaVegetal" rules={[{ required: true, message: 'Por favor, insira a cobertura vegetal!' }]}>
@@ -151,7 +165,7 @@ const App = () => {
         </Form.Item>
 
         <Form.Item>
-          <Button type="primary" htmlType="submit" loading={loading} block>
+          <Button style={{ background: 'linear-gradient(135deg, #000428, #00FFFF)' }} type="primary" htmlType="submit" loading={loading} block>
             {loading ? <Spin size="small" /> : "Gerar NFT"}
           </Button>
         </Form.Item>
@@ -159,7 +173,7 @@ const App = () => {
 
       {/* Marketplace Section */}
       <div style={{ marginTop: '50px' }}>
-        <Title level={2}>Marketplace - NFTs de Preservação de Áreas Naturais</Title>
+        <h2>Marketplace - NFTs de Preservação de Áreas Naturais</h2>
 
         {fetchingNfts ? (
           <div style={{ textAlign: "center", padding: "20px" }}>
@@ -175,6 +189,10 @@ const App = () => {
                 <Col span={8} key={index}>
                   <Card
                     hoverable
+                    style={{
+                      background: 'linear-gradient(135deg, #000428, #00FFFF)',
+                    }}
+                    onClick={() => window.open(metadataUrls[nft.URI], '_blank')}
                   >
                     <Card.Meta
                       title={nft.name}
@@ -183,16 +201,15 @@ const App = () => {
                           <Paragraph ellipsis={{ rows: 2, expandable: true }}>
                             {nft.description}
                           </Paragraph>
-                          <div>
-                            <img height={300} src={imageUrls[nft.URI] || 'https://via.placeholder.com/150'} />
-                            <strong>Atributos:</strong>
-                            <ul>
-                              {nft.attributes?.map((attr, idx) => (
-                                <li key={idx}>
-                                  {attr.trait_type}: {attr.value}
-                                </li>
-                              ))}
-                            </ul>
+                          <div style={{ color: '#FFFFFF' }}>
+                            <img
+                              height={300}
+                              src={imageUrls[nft.URI] || 'https://via.placeholder.com/150'}
+                            />
+                            <div>
+                              <strong>ID do NFT: </strong>
+                              <span>{nft.nft_serial}</span> {/* Aqui está o ID do NFT */}
+                            </div>
                           </div>
                         </div>
                       }
@@ -205,6 +222,7 @@ const App = () => {
                 <p>Nenhum NFT encontrado.</p>
               </div>
             )}
+
           </Row>
         )}
       </div>

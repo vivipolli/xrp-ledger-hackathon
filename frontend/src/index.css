@@ -1,68 +1,89 @@
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Roboto', sans-serif; /* Escolha uma fonte moderna */
   line-height: 1.5;
   font-weight: 400;
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
+  background: linear-gradient(to right, #000428, #00FFFF); /* Gradiente de fundo */
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
 body {
   margin: 0;
   display: flex;
-  place-items: center;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   min-width: 320px;
   min-height: 100vh;
+  text-align: center;
+  background:  #000; /* Gradiente de fundo */
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+.ant-form {
+  padding: 2rem 0 !important;
+  margin: auto !important;
+}
+
+h1, h2 {
+  font-size: 32px; /* Tamanho do título */
+  font-weight: 700; /* Título em bold */
+  color: #FFFFFF; /* Texto branco */
+  line-height: 1.5;
 }
 
 button {
   border-radius: 8px;
   border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
+  padding: 1em 2em;
+  font-size: 18px; /* Tamanho maior para o botão */
+  font-weight: 700; /* Texto bold */
+  background-color: #00FFFF; /* Cor de fundo azul neon */
+  color: #FFFFFF;
   cursor: pointer;
-  transition: border-color 0.25s;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
+
 button:hover {
-  border-color: #646cff;
+  background-color: #0077FF; /* Efeito de hover com azul escuro */
+  transform: scale(1.05); /* Leve efeito de pulsar */
 }
+
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+}
+
+input, textarea {
+  border: 2px solid #00FFFF; /* Borda azul neon */
+  border-radius: 8px;
+  padding: 0.8em;
+  background-color: transparent;
+  color: #FFFFFF;
+  font-size: 16px;
+}
+
+input:focus, textarea:focus {
+  border-color: #00FFFF;
+  box-shadow: 0 0 8px #00FFFF; /* Efeito de borda brilhante */
+}
+
+input::placeholder, textarea::placeholder {
+  color: #B0B0B0; /* Placeholder mais claro */
+  font-style: italic;
+}
+
+.ant-form-item-label > label {
+  color: #fff !important;
 }
 
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
     background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
   }
 }

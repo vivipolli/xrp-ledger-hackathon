@@ -1,42 +1,86 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+.app-container {
+  padding: 50px;
+  background: linear-gradient(to right, #000428, #00FFFF);
+  color: #fff;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.main-title {
+  font-size: 36px;
+  font-weight: bold;
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.text {
+  color: #faebeb;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.main-description {
+  font-size: 18px;
+  line-height: 1.5;
+  text-align: center;
+  margin-bottom: 40px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.form-container {
+  max-width: 600px;
+  width: 100%;  
+  margin: auto !important;
+}
+
+
+
+.input-field {
+  border-radius: 8px;
+  border: 2px solid #00FFFF;
+  background-color: transparent;
+  color: #fff;
+}
+
+.input-field:focus {
+  border-color: #0077FF;
+  box-shadow: 0 0 8px #00FFFF;
+}
+
+.submit-button {
+  background-color: #00FFFF;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 8px;
+  border: 1px solid transparent;
+}
+
+.submit-button:hover {
+  background-color: #0077FF;
+}
+
+.marketplace-section {
+  margin-top: 50px;
+}
+
+.loading-spinner {
+  text-align: center;
+}
+
+.error-message {
+  color: red;
+  text-align: center;
+}
+
+.no-nfts {
+  text-align: center;
 }
 
 .card {
+  background-color: rgba(0, 0, 0, 0.5);
   padding: 2em;
+  border-radius: 16px;
 }
 
-.read-the-docs {
-  color: #888;
+.card img {
+  width: 100%;
+  border-radius: 8px;
 }
