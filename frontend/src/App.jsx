@@ -34,7 +34,7 @@ const App = () => {
     formData.append("projetos", projetos);
 
     try {
-      const response = await axios.post("http://localhost:3000/mint-nft", formData, {
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/mint-nft`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -54,7 +54,7 @@ const App = () => {
   const fetchNfts = async () => {
     setFetchingNfts(true);
     try {
-      const response = await axios.get("http://localhost:3000/nfts");
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/nfts`);
       setNfts(response.data);
     } catch (error) {
       setError("Erro ao buscar NFTs.");
