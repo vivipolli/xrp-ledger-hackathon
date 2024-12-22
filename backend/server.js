@@ -78,6 +78,7 @@ app.post("/mint-nft", upload.single("image"), async (req, res) => {
       corposAgua,
       nascentes,
       projetos,
+      car,
     } = req.body;
 
     if (!req.file) {
@@ -103,6 +104,7 @@ app.post("/mint-nft", upload.single("image"), async (req, res) => {
         { trait_type: "Número de Corpos d'Água", value: corposAgua },
         { trait_type: "Número de Nascentes", value: nascentes },
         { trait_type: "Projetos em Desenvolvimento", value: projetos },
+        { trait_type: "Registro CAR", value: car },
       ],
     };
 

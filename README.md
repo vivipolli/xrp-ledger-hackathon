@@ -103,6 +103,7 @@ npm run dev
   - `corposAgua`: Number of water bodies.
   - `nascentes`: Number of springs.
   - `projetos`: Ongoing projects.
+  - `car`: CAR number.
 
 #### Example Request
 
